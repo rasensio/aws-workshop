@@ -7,24 +7,25 @@
   <meta name="description" content="An AWS ABC workshop">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="styles.css">
 
-<style>
-  body .docsify-pagination-container {
-    border-width: 2px;
-    border-color: #EB912D;
-  }
-  body .pagination-item-label svg {
-    height: 1.5em;
-    stroke-linecap: square;
-    stroke-linejoin: square;
-    stroke-width: 3px;
-  }
+  <style>
+    body .docsify-pagination-container {
+      border-width: 2px;
+      border-color: #EB912D;
+    }
+    body .pagination-item-label svg {
+      height: 1.5em;
+      stroke-linecap: square;
+      stroke-linejoin: square;
+      stroke-width: 3px;
+    }
 
-  body .pagination-item-title {
-    font-size: 1.1em;
-  }
+    body .pagination-item-title {
+      font-size: 1.1em;
+    }
 
-</style>
+  </style>
 </head>
 <body>
   <div id="app">Loading...</div>
@@ -60,9 +61,21 @@
         nextText: 'Next',
         crossChapter: true,
       },
+      plugins: [
+        function(hook, vm) {
+          hook.afterEach(function (html) {
+            var year = new Date().getFullYear();
+            var footer = 
+              '<section style="" id="footer">' +
+              `  <a href="https://aws.amazon.com/privacy/?nc1=f_pr" target="_blank">Privacy</a> | <a href="https://aws.amazon.com/terms/?nc1=f_pr" target="_blank">Site Terms</a> | © ${year}, Amazon Web Services, Inc. or its affiliates. All rights reserved.` + 
+              '</section>';
+            return `${html}${footer}`;
+          })
+        }
+      ]
     }
 
-        // offline mode will be available only if browser allows it
+    // offline mode will be available only if browser allows it
     if (typeof navigator.serviceWorker !== 'undefined') {
       navigator.serviceWorker.register('sw.js')
     }
